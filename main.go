@@ -1,6 +1,9 @@
 package main
 
 import (
+	"dingding/controller/user"
+	"dingding/middlewares"
+	"dingding/server"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -13,6 +16,18 @@ type Product struct {
 }
 
 func main() {
+	server.
+		Init().
+		SetMiddlewares(
+			middlewares.Cors(),
+		).
+		Route(
+			user.Controllers(),
+		).
+		Listen()
+}
+
+func DbTest() {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
