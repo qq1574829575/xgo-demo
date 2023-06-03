@@ -12,7 +12,7 @@ func (c *UserController) login() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		username := ctx.PostForm("username")
 		password := ctx.PostForm("password")
-		if username == "admin" && password == "123456" {
+		if username == "admin" && password == "fuckdingding" {
 			ctx.JSON(http.StatusOK, gin.H{
 				"code":    200,
 				"message": "登录成功",
@@ -43,7 +43,8 @@ func (c *UserController) getUserInfo() gin.HandlerFunc {
 
 func (c *UserController) getRecordList() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		recordDb, err := gorm.Open(sqlite.Open("attendance_record.db"), &gorm.Config{})
+		databasePath := ctx.PostForm("databasePath")
+		recordDb, err := gorm.Open(sqlite.Open(databasePath+"attendance_record.db"), &gorm.Config{})
 		if err != nil {
 			ctx.JSON(http.StatusOK, gin.H{
 				"code":    500,
@@ -78,7 +79,8 @@ func (c *UserController) getRecordList() gin.HandlerFunc {
 
 func (c *UserController) getUserList() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		userDb, err := gorm.Open(sqlite.Open("user.db"), &gorm.Config{})
+		databasePath := ctx.PostForm("databasePath")
+		userDb, err := gorm.Open(sqlite.Open(databasePath+"user.db"), &gorm.Config{})
 		if err != nil {
 			ctx.JSON(http.StatusOK, gin.H{
 				"code":    500,
@@ -99,7 +101,8 @@ func (c *UserController) getUserList() gin.HandlerFunc {
 
 func (c *UserController) addRecord() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		recordDb, err := gorm.Open(sqlite.Open("attendance_record.db"), &gorm.Config{})
+		databasePath := ctx.PostForm("databasePath")
+		recordDb, err := gorm.Open(sqlite.Open(databasePath+"attendance_record.db"), &gorm.Config{})
 		if err != nil {
 			ctx.JSON(http.StatusOK, gin.H{
 				"code":    500,
@@ -133,7 +136,8 @@ func (c *UserController) addRecord() gin.HandlerFunc {
 
 func (c *UserController) deleteRecord() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		recordDb, err := gorm.Open(sqlite.Open("attendance_record.db"), &gorm.Config{})
+		databasePath := ctx.PostForm("databasePath")
+		recordDb, err := gorm.Open(sqlite.Open(databasePath+"attendance_record.db"), &gorm.Config{})
 		if err != nil {
 			ctx.JSON(http.StatusOK, gin.H{
 				"code":    500,
