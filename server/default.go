@@ -18,7 +18,7 @@ type Server struct {
 func Init() *Server {
 	// 作为Server的构造器
 	s := &Server{Engine: gin.New()}
-	s.StaticFS("/static", http.Dir("./static"))
+	// s.StaticFS("/static", http.Dir("./static"))
 	// 返回作为链式调用
 	return s
 }
