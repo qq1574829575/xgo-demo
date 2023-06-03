@@ -52,7 +52,7 @@ func (c *UserController) getRecordList() gin.HandlerFunc {
 			})
 			return
 		}
-		userDb, err := gorm.Open(sqlite.Open("user.db"), &gorm.Config{})
+		userDb, err := gorm.Open(sqlite.Open(databasePath+"user.db"), &gorm.Config{})
 		if err != nil {
 			ctx.JSON(http.StatusOK, gin.H{
 				"code":    500,
